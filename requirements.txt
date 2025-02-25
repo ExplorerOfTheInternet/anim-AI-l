@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+tensorflow
+kagglehub
+pillow
+opencv-python
+numpy
