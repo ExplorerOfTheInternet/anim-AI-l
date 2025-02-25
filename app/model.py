@@ -45,7 +45,7 @@ def create_and_train_model(train_data, val_data):
     return model
 
 # Modell laden
-def load_model():
+def load_model(train_data):
     model = tf.keras.models.load_model("model/animal_classifier.h5")
     class_names = list(train_data.class_indices.keys())
     return model, class_names

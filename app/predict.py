@@ -1,6 +1,8 @@
 # app/predict.py
 from fastapi import APIRouter, UploadFile, File
-from .utils import load_model, prepare_image
+import numpy as np
+from .utils import prepare_image
+from .model import load_model
 
 router = APIRouter()
 
