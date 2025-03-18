@@ -1,22 +1,22 @@
-# app/predict.py
-from fastapi import APIRouter, UploadFile, File
+from pyexpat import model
+import tensorflow as tf
 import numpy as np
-from .utils import prepare_image
-from .model import load_model
+import cv2
 
-router = APIRouter()
+def predict(image_path, model):
+    #1. das bild wird geladen
+    img = cv2.imread(image_path)
+    img = cv2.resize(img, (224, 224)) 
+    img = img.astype("float32") / 255.0  
+    img = np.expand_dims(img, axis=0)  
 
-# Modell und Klassennamen laden
-model, class_names = load_model()
+    #2. da wird die vorhersage gemacht
+    predictions = model.predict(img)
+    predicted_class = np.argmax(predictions)  #-> hier wird die Klasse mit der höchsten wahrscheinlichkeit genommen
 
-@router.post("/predict/")
-async def predict_animal(file: UploadFile = File(...)):
-    # Bild vorbereiten
-    image = await prepare_image(file)
+    return predicted_class, predictions
 
-    # Vorhersage
-    prediction = model.predict(image)
-    class_index = np.argmax(prediction)
-    class_name = class_names[class_index]
-
-    return {"predicted_animal": class_name}
+#kurzes bsp zum schaun obs geht
+image_path = "../test.jpg" 
+predicted_class, predictions = predict(image_path, model)
+print(f"Vorhergesagte Klasse: {predicted_class}")
