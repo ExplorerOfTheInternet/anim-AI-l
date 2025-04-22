@@ -1,0 +1,7 @@
+Das backend basiert auf FastAPI -> stellt einen /predict-Endpoint bereit, bei dem User dann tierbilder hochladen können
+Das backend lädt ein vortrainiertes TensorFlow-Modell, das auf Katzen, Hunde, Affen und Löwen trainiert wurde 
+    -> (vorübergehend mal nur die 4)
+Die eingehende Bilder werden auf 224x224 Pixel konvertiert, normalisiert und ans Modell übergeben.
+Die Vorhersage wird als JSON zurückgegeben (inklusive Klasse und Wahrscheinlichkeit)
+Das Modell wurde mit kleinen CNN trainiert (in Keras geschrieben)
+
